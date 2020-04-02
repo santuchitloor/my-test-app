@@ -9,57 +9,90 @@ class Persons extends Component {
         super(props);
         this.state = {
             PersonList: data,
-            edit: false,
-            addNew: false,
-            editItem: null
+            action: '',
+            person: {
+                id: 0,
+                firstName: '',
+                lastName: '',
+                email: '',
+                age: 0
+            }
         }
     }
 
     editHandler = id => {
         const { PersonList } = this.state;
         const item = PersonList.find(p => p.id === id);
-        this.setState({ editItem: item, edit: true });
+        this.setState({ person: item, action: 'edit' });
     }
 
     updateHandler = (id, property, value) => {
-        const { PersonList } = this.state;
+        console.log(property);
         console.log(value);
-        const index = PersonList.findIndex( p => p.id === id);
-        PersonList[index][property] = value;
-        this.setState({ PersonList })
+        const { PersonList, person, action } = this.state;
+        if (action === 'edit') {
+            const index = PersonList.findIndex(p => p.id === id);
+            PersonList[index][property] = value;
+            this.setState({ PersonList })
+        }
+        if (action === 'add') {
+            person[property] = value;
+            this.setState({ person });
+        }
+    }
+
+    saveHandler = () => {
+        const { action, PersonList, person } = this.state;
+        if (action === 'add') {
+            person.id = Math.max.apply(Math, PersonList.map(function (o) { return o.id; })) + 1;
+            PersonList.push(person);
+        }
+        this.setState({
+            action: '',
+            person: {
+                id: 0,
+                firstName: '',
+                lastName: '',
+                email: '',
+                age: 0
+            }
+        })
+    }
+
+    addHandler = () => {
+        this.setState({
+            person: {
+                id: 0,
+                firstName: '',
+                lastName: '',
+                email: '',
+                age: 0
+            },
+            action: 'add'
+        });
     }
 
     render() {
-        const { PersonList, editItem, edit } = this.state;
-        let list = null;
-        let person = null;
-        if (editItem && edit) {
-            person = (<NewPerson firstName={editItem.firstName}
-                lastName={editItem.lastName}
-                age={editItem.age}
-                email={editItem.email}
-                id={editItem.id}
-                change={this.updateHandler}
-            />);
-        }
-        if (PersonList.length > 0 && !edit) {
-            list = PersonList.map((p, index) =>
-                <Person firstName={p.firstName}
-                    lastName={p.lastName}
-                    id={p.id}
-                    email={p.email}
-                    age={p.age}
-                    edit={this.editHandler}
-                    key={index}
-                />);
-        }
+        const { PersonList, person, action } = this.state;
         return (
-            <div>
-                <div className='card'>
-                    {list}
-                </div>
-                {person}
-            </div>
+            <>
+                {PersonList.length > 0 && action === '' &&
+                    <>
+                        <button type='button' onClick={this.addHandler}>New</button>
+                        <div className='card'>
+                            {PersonList.map((p, index) =>
+                                <Person {...p}
+                                    edit={this.editHandler}
+                                    key={index}
+                                />)}
+                        </div>
+                    </>
+                }
+                {action !== '' && <NewPerson {...person}
+                    change={this.updateHandler}
+                    save={this.saveHandler}
+                />}
+            </>
         )
     }
 }

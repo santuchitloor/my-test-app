@@ -1,11 +1,17 @@
 .card{
-    position: 'relative';
-    display: 'flex';
-    flex-direction: 'row';
+    position: relative;
+    display: flex;
+    flex-direction: row;
     min-width: 0;
-    word-wrap: 'break-word';
-    background-color: '#fff';
-    background-clip: 'border-box';
-    border-radius: '.25rem';
-    margin-top: '.5rem';
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border-radius: .25rem;
+    margin-top: .5rem;
+}
+
+button{
+    padding: 5px;
+    margin: 10px 10px 0 0;
+    float: right;
 }

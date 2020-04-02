@@ -1,8 +1,7 @@
 import React from 'react';
 
 const newPerson = props => {
-    // eslint-disable-next-line no-unused-vars
-    const { firstName, lastName, age, email, id, change, save, cancle } = props;
+    const { firstName, lastName, age, email, id, change, save } = props;
     return (
         <div>
             <div>
@@ -29,8 +28,7 @@ const newPerson = props => {
                     value={email}
                     onChange={(event) => change(id, 'email', event.target.value)}  />
             </div>
-            <button onClick={() => save(id)} >Save</button>
-            <button onClick={() => cancle()} >Cancle</button>
+            <button onClick={() => save()} >Done</button>
         </div>
     );
 }
