@@ -2,7 +2,22 @@ import React, { Component } from 'react';
 import Person from './Person';
 import NewPerson from './NewPerson';
 import './index.css';
+import styled from 'styled-components';
 import data from './__mock_data__';
+import withTitle from '../hoc/withTitle';
+
+const StyledPersonDiv = props => { return styled.div`
+    position: relative;rnote
+    display: flex;
+    flex-direction: row;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border-radius: .25rem;
+    margin-top: .5rem;
+`;
+}
 
 class Persons extends Component {
     constructor(props) {
@@ -79,13 +94,13 @@ class Persons extends Component {
                 {PersonList.length > 0 && action === '' &&
                     <>
                         <button type='button' onClick={this.addHandler}>New</button>
-                        <div className='card'>
+                        <StyledPersonDiv>
                             {PersonList.map((p, index) =>
                                 <Person {...p}
                                     edit={this.editHandler}
                                     key={index}
                                 />)}
-                        </div>
+                        </StyledPersonDiv>
                     </>
                 }
                 {action !== '' && <NewPerson {...person}
@@ -97,4 +112,4 @@ class Persons extends Component {
     }
 }
 
-export default Persons;
+export default withTitle(Persons, 'Persons List', '');

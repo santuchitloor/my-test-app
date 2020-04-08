@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 const newPerson = props => {
     const { firstName, lastName, age, email, id, change, save } = props;
     return (
-        <div>
+        <Fragment>
             <div>
                 <label>First Name:</label>
                 <input type='text'
@@ -29,7 +29,7 @@ const newPerson = props => {
                     onChange={(event) => change(id, 'email', event.target.value)}  />
             </div>
             <button onClick={() => save()} >Done</button>
-        </div>
+        </Fragment>
     );
 }
 

@@ -1,4 +1,4 @@
-.card{
+/* .card{
     position: relative;
     display: flex;
     flex-direction: row;
@@ -8,7 +8,7 @@
     background-clip: border-box;
     border-radius: .25rem;
     margin-top: .5rem;
-}
+} */
 
 button{
     padding: 5px;
