@@ -2,28 +2,14 @@ import React, { Component } from 'react';
 import Person from './Person';
 import NewPerson from './NewPerson';
 import './index.css';
-import styled from 'styled-components';
-import data from './__mock_data__';
+import store from '../rootStore';
 import withTitle from '../hoc/withTitle';
-
-const StyledPersonDiv = props => { return styled.div`
-    position: relative;rnote
-    display: flex;
-    flex-direction: row;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border-radius: .25rem;
-    margin-top: .5rem;
-`;
-}
 
 class Persons extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            PersonList: data,
+            PersonList: store.userStore.VisibleUsers,
             action: '',
             person: {
                 id: 0,
@@ -94,13 +80,13 @@ class Persons extends Component {
                 {PersonList.length > 0 && action === '' &&
                     <>
                         <button type='button' onClick={this.addHandler}>New</button>
-                        <StyledPersonDiv>
+                        <div className='card'>
                             {PersonList.map((p, index) =>
                                 <Person {...p}
                                     edit={this.editHandler}
                                     key={index}
                                 />)}
-                        </StyledPersonDiv>
+                        </div>
                     </>
                 }
                 {action !== '' && <NewPerson {...person}
@@ -112,4 +98,4 @@ class Persons extends Component {
     }
 }
 
-export default withTitle(Persons, 'Persons List', '');
+export default withTitle(Persons, 'Persons list', '');

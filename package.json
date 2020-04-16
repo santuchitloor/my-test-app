@@ -134,14 +134,20 @@
     ]
   },
   "babel": {
-    "plugins": [
-      "transform-decorators-legacy"
-    ],
     "presets": [
       "react-app"
+    ],
+    "plugins": [
+      [
+        "@babel/plugin-proposal-decorators",
+        {
+          "legacy": true
+        }
+      ]
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^7.8.3",
     "babel-plugin-transform-decorators-legacy": "^1.3.5"
   }
 }
