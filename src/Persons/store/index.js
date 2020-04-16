@@ -22,6 +22,10 @@ const INITIAL_STATE = [{
     email: 'mitchel.johnson@gmail.com'
 }];
 
+const isNotDeleted = deletedUsers => user => (
+    deletedUsers.indexOf(user.id) === -1
+)
+
 class UserStore {
     constructor(rootStore) {
         this.rootStore = rootStore;
@@ -30,9 +34,8 @@ class UserStore {
     @observable users = INITIAL_STATE;
 
     @computed get VisibleUsers() {
-        console.log(this.rootStore.userEventStore.deletedUsers);
-        console.log('filtered users:', this.users.filter(user => this.rootStore.userEventStore.deletedUsers.indexOf(id => id === user.id) === -1))
-        return this.users.filter(user => this.rootStore.userEventStore.deletedUsers.indexOf(id => id === user.id) === -1);
+        const { deletedUsers } = this.rootStore.userEventStore;
+        return this.users.filter(isNotDeleted(deletedUsers));
     };
 }
 

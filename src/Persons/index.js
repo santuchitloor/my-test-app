@@ -81,7 +81,7 @@ class Persons extends Component {
                     <>
                         <button type='button' onClick={this.addHandler}>New</button>
                         <div className='card'>
-                            {PersonList.map((p, index) =>
+                            {store.userStore.VisibleUsers.map((p, index) =>
                                 <Person {...p}
                                     edit={this.editHandler}
                                     key={index}
